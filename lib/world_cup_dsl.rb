@@ -24,17 +24,8 @@ class WorldCupDSL
     results
   end
 
-  def query &block
-    instance_eval(&block)
-    data
-  end
-
   def flush
     @conditions = {}
-  end
-
-  def method_missing(m, *args, &block)
-    where(m, args.first)
   end
 
 end

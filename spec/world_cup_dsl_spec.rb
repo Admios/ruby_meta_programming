@@ -24,25 +24,4 @@ describe WorldCupDSL do
                                  :club=>"Atletico Colon", :club_country=>"ARG", :height=>175}])
   end
 
-  it 'should work with dynamic methods' do
-    @wc_dsl.country "Argentina"
-    expect(@wc_dsl.data.size).to eq(23)
-  end
-
-
-  it 'should work with a block and dynamic methods' do
-    result = @wc_dsl.query do
-      country "Argentina"
-    end
-    expect(result.size).to eq(23)
-  end
-
-  it 'should work with a block, dynamic methods and multiple conditions' do
-    result = @wc_dsl.query do
-      country "Argentina"
-      height '175'
-    end
-    expect(result.size).to eq(1)
-  end
-
 end

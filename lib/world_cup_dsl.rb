@@ -28,4 +28,8 @@ class WorldCupDSL
     @conditions = {}
   end
 
+  def method_missing(m, *args, &block)
+    where(m, args.first)
+  end
+
 end

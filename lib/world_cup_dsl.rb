@@ -12,7 +12,11 @@ class WorldCupDSL
 
   def where property, expected
     @conditions[property] = expected
+    self
   end
+
+  alias_method 'y', 'where'
+  alias_method 'dónde', 'where'
 
   def data
     results = @data.dup
@@ -24,17 +28,20 @@ class WorldCupDSL
     results
   end
 
+  def flush
+    @conditions = {}
+  end
+
   def query &block
     instance_eval(&block)
     data
   end
 
-  def flush
-    @conditions = {}
-  end
-
   def method_missing(m, *args, &block)
-    where(m, args.first)
+    if args.size == 1
+      where(m, args.first)
+    end
+    return m.to_s
   end
 
 end

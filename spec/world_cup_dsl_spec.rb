@@ -17,8 +17,16 @@ describe WorldCupDSL do
   end
 
   it 'should find all of the players by multiple conditions' do
-    @wc_dsl.where(:country, "Argentina")
-    @wc_dsl.where(:height, '175')
+    @wc_dsl.where(:country, "Argentina").where(:height, '175')
+    expect(@wc_dsl.data).to eq([{:country=>"Argentina", :number=>12, :position=>"Defender", :fifa_display_name=>"Ariel GARCE",
+                                 :last_name=>"GARCE", :first_name=>"Ariel Hernan", :shirt_name=>"GARCE", :dob=>"14 Jul 1979",
+                                 :club=>"Atletico Colon", :club_country=>"ARG", :height=>175}])
+  end
+
+
+
+  it 'should find all of the players by multiple conditions in español' do
+    @wc_dsl.dónde(:country, "Argentina").y(:height, '175')
     expect(@wc_dsl.data).to eq([{:country=>"Argentina", :number=>12, :position=>"Defender", :fifa_display_name=>"Ariel GARCE",
                                  :last_name=>"GARCE", :first_name=>"Ariel Hernan", :shirt_name=>"GARCE", :dob=>"14 Jul 1979",
                                  :club=>"Atletico Colon", :club_country=>"ARG", :height=>175}])
@@ -38,10 +46,15 @@ describe WorldCupDSL do
   end
 
   it 'should work with a block, dynamic methods and multiple conditions' do
+
     result = @wc_dsl.query do
-      country "Argentina"
-      height '175'
+      country    'Argentina'
+      height     '175'
+      club       'Atletico Colon'
+      last_name  'GARCE'
+      dob        '14 Jul 1979'
     end
+
     expect(result.size).to eq(1)
   end
 
